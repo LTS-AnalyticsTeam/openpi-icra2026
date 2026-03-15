@@ -1,9 +1,11 @@
 
 # openpiの環境構築
 ## フォルダ構成
+```
 ICRA2026/
 ├── airoa-evaluation-ICRA/
 └── openpi-icra2026/
+```
 
 ## 環境構築手順
 ``` bash
@@ -22,7 +24,16 @@ export HF_LEROBOT_HOME=/srv/shared/ICRA2026/datasets
 uv run scripts/compute_norm_stats.py --config-name pi0_hsr --max-frames 200000
 
 # トレーニング開始
-XLA_PYTHON_CLIENT_MEM_FRACTION=0.9 uv run scripts/train.py pi0_hsr --exp-name=my_experiment --overwrite
+XLA_PYTHON_CLIENT_MEM_FRACTION=0.9 && \
+    uv run scripts/train.py \
+        pi0_hsr \
+        --exp-name="test_airoa-moma" \
+        --overwrite \
+        --data.action-mode="relative" \
+        --assets-base-dir="/srv/shared/ICRA2026/assets/airoa-org/airoa-moma" \
+        --checkpoint-base-dir="/srv/shared/ICRA2026/checkpoint/airoa-org/airoa-moma" \
+        --batch-size=32 \
+        --num-train-steps=1000
 ```
 
 TrainingConfigで指定した`--config-name repo_id`のデータが存在しない場合、Hugging Face Hubから自動的にダウンロードされるが、データ形式が下記のように加工去れた状態で保存される。
