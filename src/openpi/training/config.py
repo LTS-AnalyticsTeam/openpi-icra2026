@@ -821,7 +821,7 @@ _CONFIGS = [
         name="pi0_hsr",
         model=pi0_config.Pi0Config(paligemma_variant="gemma_2b_lora", action_expert_variant="gemma_300m_lora"),
         data=LeRobotHSRDataConfig(
-            repo_id="processed/2025-05-06-07-v3.1-success-only",
+            repo_id="airoa-org/airoa-moma",
             base_config=DataConfig(
                 prompt_from_task=True,
             ),
